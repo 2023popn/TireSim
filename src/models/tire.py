@@ -1,0 +1,32 @@
+# src/models/tire.py
+import numpy as np
+from src.config import TireConfig
+
+def compute_tire_forces(fz: float, slip_angle: float, slip_ratio: float, config: TireConfig) -> tuple[float, float]:
+    """
+    Computes longitudinal (Fx) and lateral (Fy) forces for a given normal load,
+    slip angle (rad), and slip ratio.
+    """
+    # Simple linear brush-style or combined slip approximation for testing
+    # (Replace or expand this with your full physics equations later)
+    
+    # Effective friction adjusted for load sensitivity
+    mu = config.mu_peak * (1.0 - config.load_sensitivity * (fz / 1000.0))
+    max_force = mu * fz
+    
+    # Lateral force calculation (simplified linear region + saturation)
+    fy = -config.cornering_stiffness * slip_angle
+    fy = np.clip(fy, -max_force, max_force) # Cap at friction limit
+    
+    # Longitudinal force calculation (simplified)
+    fx = config.cornering_stiffness * slip_ratio
+    fx = np.clip(fx, -max_force, max_force)
+    
+    # Enforce friction circle constraint (combined slip limit)
+    total_force = np.sqrt(fx**2 + fy**2)
+    if total_force > max_force:
+        scale = max_force / total_force
+        fx *= scale
+        fy *= scale
+        
+    return fx, fy
