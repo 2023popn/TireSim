@@ -1,6 +1,6 @@
 # main.py
 from src.config import TireConfig
-from src.solvers.sweps import run_slip_angle_sweep
+from src.solvers.sweeps import run_slip_angle_sweep
 from src.solvers.realtime import run_live_simulation
 from src.utils.plotting import plot_sweep_results
 
