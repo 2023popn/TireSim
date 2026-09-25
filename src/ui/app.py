@@ -55,7 +55,7 @@ with tab_live:
         
         # Calculate single point for current slider states
         from src.models.tire import compute_tire_forces
-        fx, fy = compute_tire_forces(load_input, np.radians(steering_input), 0.0, config, tire_temp=20.0)
+        fx, fy = compute_tire_forces(load_input, np.radians(steering_input), 0.0, config, 20.0)
         ax.plot(fx, fy, 'ro', markersize=12, label="Current Force State")
         ax.legend()
         st.pyplot(fig)
