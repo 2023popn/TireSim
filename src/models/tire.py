@@ -3,7 +3,7 @@ import numpy as np
 from src.config import TireConfig
 from src.models.thermal import calculate_temperature_factor
 
-def compute_tire_forces(fz: float, slip_angle: float, slip_ratio: float, config: TireConfig) -> tuple[float, float]:
+def compute_tire_forces(fz: float, slip_angle: float, slip_ratio: float, config: TireConfig, tire_temp: float) -> tuple[float, float]:
     """
     Computes longitudinal (Fx) and lateral (Fy) forces for a given normal load,
     slip angle (rad), and slip ratio.
