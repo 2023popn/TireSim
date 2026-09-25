@@ -1,22 +1,17 @@
 # main.py
-from src.config import TireConfig
-from src.solvers.sweeps import run_slip_angle_sweep
-from src.solvers.realtime import run_live_simulation
-from src.utils.plotting import plot_sweep_results
+import sys
+import subprocess
 
 def main():
-    config = TireConfig()
+    print("Starting TireSim Streamlit Dashboard...")
     
-    mode = "live" # Change to "sweep" or "dynamic" whenever you want
-    
-    if mode == "sweep":
-        print("Running static slip angle sweep...")
-        results = run_slip_angle_sweep([500.0, 1000.0, 1500.0], config)
-        plot_sweep_results(results)
-        
-    elif mode == "live":
-        print("Launching live tire physics simulator...")
-        run_live_simulation(config)
+    # Programmatically runs 'streamlit run src/ui/app.py' using the active Python interpreter
+    try:
+        subprocess.run([sys.executable, "-m", "streamlit", "run", "src/ui/app.py"], check=True)
+    except KeyboardInterrupt:
+        print("\nDashboard closed.")
+    except Exception as e:
+        print(f"Error launching dashboard: {e}")
 
 if __name__ == "__main__":
     main()
