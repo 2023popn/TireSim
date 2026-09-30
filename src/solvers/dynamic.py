@@ -14,6 +14,7 @@ def run_dynamic_simulation(duration: float, dt: float, config: TireConfig):
     mass = 50.0            # kg (approx. quarter-kart mass)
     velocity_x = 10.0      # initial forward velocity (m/s)
     velocity_y = 0.0       # lateral velocity (m/s)
+    temperature = 20.0       # initial tire temperature (Celsius)
     
     # Storage for logging results
     history = {'time': [], 'vx': [], 'vy': [], 'fx': [], 'fy': [], 'accel_x': [], 'accel_y': []}
@@ -32,7 +33,7 @@ def run_dynamic_simulation(duration: float, dt: float, config: TireConfig):
         fz = mass * 9.81 
         
         # 1. Get forces from the tire model
-        fx, fy = compute_tire_forces(fz, slip_angle, slip_ratio, config)
+        fx, fy = compute_tire_forces(fz, slip_angle, slip_ratio, temperature, config)
         
         # 2. Apply Newton's Second Law (F = ma -> a = F / m)
         accel_x = fx / mass

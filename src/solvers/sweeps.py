@@ -12,7 +12,7 @@ def run_slip_angle_sweep(fz_values: list[float], config: TireConfig):
         fy_list = []
         fx_list = []
         for alpha in slip_angles:
-            fx, fy = compute_tire_forces(fz, alpha, slip_ratio=0.0, config=config)
+            fx, fy = compute_tire_forces(fz, alpha, slip_ratio=0.0, tire_temp=20.0, config=config)
             fx_list.append(fx)
             fy_list.append(fy)
         results[fz] = {
